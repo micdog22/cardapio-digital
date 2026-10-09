@@ -1,0 +1,11 @@
+{
+  "name": "cardapio-digital",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Modelo de cardápio online com carrinho e pedido pelo WhatsApp para pequenos negócios, editável em um único arquivo JSON e publicado de graça no GitHub Pages.",
+  "type": "module",
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/micdog22/cardapio-digital.git" },
+  "homepage": "https://micdog22.github.io/cardapio-digital/"
+}

@@ -1,0 +1,153 @@
+{
+  "nome": "Lanchonete Exemplo",
+  "slogan": "Lanches artesanais, porções e açaí feitos na hora",
+  "whatsapp": "5519900000000",
+  "endereco": "Rua Exemplo, 123 – Centro",
+  "taxaEntrega": 5.00,
+  "pedidoMinimo": 20.00,
+  "pagamentos": ["Pix", "Dinheiro", "Cartão de crédito", "Cartão de débito"],
+  "corTema": "#c2410c",
+  "horarios": {
+    "domingo": "18:00-23:30",
+    "segunda": "fechado",
+    "terca": "18:00-23:30",
+    "quarta": "18:00-23:30",
+    "quinta": "18:00-23:30",
+    "sexta": "18:00-02:00",
+    "sabado": "11:00-14:00, 18:00-02:00"
+  },
+  "categorias": [
+    {
+      "nome": "Lanches",
+      "itens": [
+        {
+          "id": "x-burguer",
+          "nome": "X-Burguer",
+          "descricao": "Pão brioche, hambúrguer de 150 g, queijo prato e molho da casa.",
+          "preco": 24.90,
+          "adicionais": [
+            { "nome": "Adicional de bacon", "preco": 4.00 },
+            { "nome": "Ovo", "preco": 2.50 },
+            { "nome": "Queijo extra", "preco": 3.00 }
+          ]
+        },
+        {
+          "id": "x-salada",
+          "nome": "X-Salada",
+          "descricao": "Hambúrguer de 150 g, queijo, alface, tomate, cebola roxa e maionese verde.",
+          "preco": 26.90,
+          "adicionais": [
+            { "nome": "Adicional de bacon", "preco": 4.00 },
+            { "nome": "Ovo", "preco": 2.50 }
+          ]
+        },
+        {
+          "id": "x-bacon",
+          "nome": "X-Bacon",
+          "descricao": "Hambúrguer de 150 g, muito bacon crocante, cheddar e cebola caramelizada.",
+          "preco": 29.90,
+          "adicionais": [
+            { "nome": "Ovo", "preco": 2.50 },
+            { "nome": "Queijo extra", "preco": 3.00 }
+          ]
+        },
+        {
+          "id": "vegetariano",
+          "nome": "Lanche vegetariano",
+          "descricao": "Hambúrguer de grão-de-bico, queijo, rúcula, tomate e molho de iogurte.",
+          "preco": 27.90
+        },
+        {
+          "id": "misto-quente",
+          "nome": "Misto-quente",
+          "descricao": "Pão de forma na chapa com presunto e queijo.",
+          "preco": 14.00,
+          "adicionais": [
+            { "nome": "Tomate", "preco": 1.50 }
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Porções",
+      "itens": [
+        {
+          "id": "batata-frita",
+          "nome": "Batata frita (300 g)",
+          "descricao": "Crocante, com sal e orégano.",
+          "preco": 22.00,
+          "adicionais": [
+            { "nome": "Cheddar e bacon", "preco": 8.00 }
+          ]
+        },
+        {
+          "id": "mandioca-frita",
+          "nome": "Mandioca frita (400 g)",
+          "descricao": "Acompanha maionese da casa.",
+          "preco": 24.00
+        },
+        {
+          "id": "aneis-de-cebola",
+          "nome": "Anéis de cebola",
+          "descricao": "Empanados e servidos com molho barbecue.",
+          "preco": 21.00,
+          "disponivel": false
+        }
+      ]
+    },
+    {
+      "nome": "Bebidas",
+      "itens": [
+        {
+          "id": "refrigerante-lata",
+          "nome": "Refrigerante lata (350 ml)",
+          "descricao": "Pergunte os sabores disponíveis.",
+          "preco": 6.00
+        },
+        {
+          "id": "suco-natural",
+          "nome": "Suco natural (500 ml)",
+          "descricao": "Laranja, limão ou maracujá.",
+          "preco": 9.00,
+          "adicionais": [
+            { "nome": "Batido com leite", "preco": 2.00 }
+          ]
+        },
+        {
+          "id": "agua-mineral",
+          "nome": "Água mineral (500 ml)",
+          "descricao": "Com ou sem gás.",
+          "preco": 4.00
+        }
+      ]
+    },
+    {
+      "nome": "Sobremesas",
+      "itens": [
+        {
+          "id": "acai-300",
+          "nome": "Açaí (300 ml)",
+          "descricao": "Açaí cremoso com banana e granola.",
+          "preco": 16.00,
+          "adicionais": [
+            { "nome": "Leite condensado", "preco": 2.00 },
+            { "nome": "Leite em pó", "preco": 2.00 },
+            { "nome": "Morango", "preco": 3.00 }
+          ]
+        },
+        {
+          "id": "brownie",
+          "nome": "Brownie com sorvete",
+          "descricao": "Brownie de chocolate meio amargo com uma bola de sorvete de creme.",
+          "preco": 15.00
+        },
+        {
+          "id": "pudim",
+          "nome": "Pudim de leite",
+          "descricao": "Fatia generosa, com calda de caramelo.",
+          "preco": 9.00
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cardápio Digital — cardápio online com pedido pelo WhatsApp</title>
+  <meta name="description" content="Cardápio online com carrinho e pedido pelo WhatsApp. Veja os itens, monte seu pedido e envie direto para a loja.">
+  <meta name="theme-color" content="#c2410c">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <header class="brand-header">
+    <div class="brand-inner">
+      <h1 id="nome-negocio">Cardápio Digital</h1>
+      <p id="slogan" class="slogan"></p>
+      <p id="status" class="status-badge" aria-live="polite" hidden></p>
+      <ul id="info" class="info"></ul>
+      <details class="hours" id="horarios-box" hidden>
+        <summary>Horários de funcionamento</summary>
+        <table><tbody id="horarios"></tbody></table>
+      </details>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <p id="carregando" class="loading">Carregando cardápio…</p>
+
+    <section id="erro" class="error-panel" role="alert" hidden>
+      <h2>Não consegui montar o cardápio</h2>
+      <p id="erro-resumo"></p>
+      <ul id="erro-lista"></ul>
+      <p>Corrija o arquivo <code>cardapio.json</code> e recarregue a página. O README explica cada campo, com um exemplo completo.</p>
+    </section>
+
+    <div id="cardapio" hidden>
+      <div class="toolbar">
+        <nav aria-label="Categorias"><ul id="categorias-nav" class="chips"></ul></nav>
+        <label for="busca" class="visually-hidden">Buscar no cardápio</label>
+        <input id="busca" type="search" placeholder="Buscar no cardápio" autocomplete="off">
+      </div>
+      <div id="secoes"></div>
+      <p id="sem-resultados" class="empty" aria-live="polite" hidden></p>
+    </div>
+  </main>
+
+  <button type="button" id="abrir-carrinho" class="cart-fab" hidden aria-haspopup="dialog">
+    <span>Ver carrinho</span><span id="fab-resumo"></span>
+  </button>
+
+  <dialog id="item-dialog" class="sheet-dialog" aria-labelledby="item-titulo">
+    <form id="item-form" method="dialog">
+      <div class="dialog-head">
+        <h2 id="item-titulo"></h2>
+        <button type="button" class="icon-btn" data-close aria-label="Fechar">×</button>
+      </div>
+      <img id="item-imagem" class="dialog-image" alt="" hidden>
+      <p id="item-descricao" class="muted"></p>
+      <p id="item-preco" class="price"></p>
+      <fieldset id="item-adicionais" class="addons">
+        <legend>Adicionais</legend>
+        <div id="item-adicionais-lista"></div>
+      </fieldset>
+      <label for="item-obs">Observação <span class="optional">(opcional)</span></label>
+      <textarea id="item-obs" rows="2" maxlength="140" placeholder="Ex.: sem cebola"></textarea>
+      <div class="qty-row">
+        <span id="qtd-rotulo">Quantidade</span>
+        <div class="stepper" role="group" aria-labelledby="qtd-rotulo">
+          <button type="button" id="qtd-menos" aria-label="Diminuir quantidade">−</button>
+          <output id="item-qtd" aria-live="polite">1</output>
+          <button type="button" id="qtd-mais" aria-label="Aumentar quantidade">+</button>
+        </div>
+      </div>
+      <button type="submit" class="btn primary block" id="item-adicionar">Adicionar</button>
+    </form>
+  </dialog>
+
+  <dialog id="carrinho" class="drawer" aria-labelledby="carrinho-titulo">
+   <div class="drawer-inner">
+    <div class="dialog-head">
+      <h2 id="carrinho-titulo">Seu pedido</h2>
+      <button type="button" class="icon-btn" data-close aria-label="Fechar carrinho">×</button>
+    </div>
+    <p id="aviso-fechado" class="notice" hidden></p>
+    <ul id="linhas" class="cart-lines"></ul>
+    <p id="carrinho-vazio" class="empty">Seu carrinho está vazio.</p>
+
+    <form id="pedido-form" novalidate>
+      <fieldset class="mode">
+        <legend>Como você quer receber?</legend>
+        <label><input type="radio" name="modo" value="entrega" checked> Entrega</label>
+        <label><input type="radio" name="modo" value="retirada"> Retirada no local</label>
+      </fieldset>
+      <div class="field">
+        <label for="cliente-nome">Seu nome</label>
+        <input id="cliente-nome" autocomplete="name" maxlength="80">
+      </div>
+      <div id="campos-entrega">
+        <div class="field">
+          <label for="cliente-endereco">Endereço (rua, número e bairro)</label>
+          <input id="cliente-endereco" autocomplete="street-address" maxlength="160">
+        </div>
+        <div class="field">
+          <label for="cliente-complemento">Complemento ou referência <span class="optional">(opcional)</span></label>
+          <input id="cliente-complemento" maxlength="120">
+        </div>
+      </div>
+      <p id="retirada-info" class="muted" hidden></p>
+      <div class="field">
+        <label for="cliente-pagamento">Forma de pagamento</label>
+        <select id="cliente-pagamento"></select>
+      </div>
+      <div class="field" id="campo-troco" hidden>
+        <label for="cliente-troco">Troco para quanto? <span class="optional">(opcional)</span></label>
+        <input id="cliente-troco" inputmode="decimal" maxlength="12" placeholder="Ex.: 100,00">
+      </div>
+      <dl class="totals">
+        <div><dt>Subtotal</dt><dd id="total-subtotal"></dd></div>
+        <div id="linha-entrega"><dt>Taxa de entrega</dt><dd id="total-entrega"></dd></div>
+        <div class="grand"><dt>Total</dt><dd id="total-geral"></dd></div>
+      </dl>
+      <p id="minimo-info" class="muted" hidden></p>
+      <div id="pedido-erros" class="form-errors" aria-live="polite"></div>
+      <button type="submit" class="btn whatsapp block" id="enviar">Enviar pedido pelo WhatsApp</button>
+      <p id="enviado" class="sent" aria-live="polite" hidden></p>
+      <button type="button" class="btn secondary block" id="limpar">Limpar carrinho</button>
+    </form>
+   </div>
+  </dialog>
+
+  <p id="toast" class="toast" role="status" hidden></p>
+
+  <footer class="site-footer">
+    <p>Pedidos enviados pelo WhatsApp. Feito com o modelo gratuito <a href="https://github.com/micdog22/cardapio-digital">Cardápio Digital</a>, código aberto · Licença MIT</p>
+  </footer>
+</body>
+</html>
