@@ -53,7 +53,7 @@ export function parseDayHours(value) {
   if (text === '' || /^fechad[oa]$/.test(fold(text))) return { intervals: [] };
   const intervals = [];
   for (const piece of text.split(/[,;]/)) {
-    const match = /^(.+?)(?:\s*[-–—]\s*|\s+(?:às|as|a|até)\s+)(.+)$/i.exec(piece.trim());
+    const match = /^(.+?)(?:\s*[-\u2013\u2014]\s*|\s+(?:às|as|a|até)\s+)(.+)$/i.exec(piece.trim());
     const open = match ? parseTime(match[1]) : NaN;
     const close = match ? parseTime(match[2]) : NaN;
     if (Number.isNaN(open) || Number.isNaN(close) || open === 1440) {
@@ -111,7 +111,7 @@ export function atTime(minutes) {
   return `${hours <= 1 ? 'à' : 'às'} ${hours}h${rest ? String(rest).padStart(2, '0') : ''}`;
 }
 
-/** Texto do selo: "Aberto agora · fecha às 23h" ou "Fechado — abre às 18h". */
+/** Texto do selo: "Aberto agora · fecha às 23h" ou "Fechado · abre às 18h". */
 export function statusText(status) {
   if (status.open) return { label: 'Aberto agora', detail: `fecha ${atTime(status.closesAt)}`, text: `Aberto agora · fecha ${atTime(status.closesAt)}` };
   if (!status.opensAt) return { label: 'Fechado', detail: '', text: 'Fechado' };
@@ -119,7 +119,7 @@ export function statusText(status) {
   let when = atTime(minutes);
   if (daysAhead === 1) when = `amanhã ${when}`;
   else if (daysAhead > 1) when = `${DAY_LABELS[weekday]} ${when}`;
-  return { label: 'Fechado', detail: `abre ${when}`, text: `Fechado — abre ${when}` };
+  return { label: 'Fechado', detail: `abre ${when}`, text: `Fechado · abre ${when}` };
 }
 
 const hhmm = (minutes) => `${String(Math.floor((minutes % 1440) / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
@@ -420,7 +420,7 @@ export function buildOrderMessage(menu, cart, customer) {
   const summary = cartSummary(menu, cart, customer.mode);
   const out = [`Olá, *${menu.name}*! Quero fazer um pedido:`, ''];
   for (const { line, item, addons, total } of summary.lines) {
-    out.push(`*${line.qty}x ${item.name}* — ${formatMoney(total)}`);
+    out.push(`*${line.qty}x ${item.name}:* ${formatMoney(total)}`);
     for (const addon of addons) out.push(`   + ${addon.name} (${formatMoney(addon.price)})`);
     if (line.note) out.push(`   Obs.: ${line.note}`);
   }

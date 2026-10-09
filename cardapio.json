@@ -2,7 +2,7 @@
   "nome": "Lanchonete Exemplo",
   "slogan": "Lanches artesanais, porções e açaí feitos na hora",
   "whatsapp": "5519900000000",
-  "endereco": "Rua Exemplo, 123 – Centro",
+  "endereco": "Rua Exemplo, 123, Centro",
   "taxaEntrega": 5.00,
   "pedidoMinimo": 20.00,
   "pagamentos": ["Pix", "Dinheiro", "Cartão de crédito", "Cartão de débito"],

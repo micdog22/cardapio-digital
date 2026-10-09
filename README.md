@@ -1,4 +1,4 @@
-# Cardápio Digital — cardápio online com pedido pelo WhatsApp (HTML + JS)
+# Cardápio Digital: cardápio online com pedido pelo WhatsApp (HTML + JS)
 
 Modelo gratuito de cardápio online para lanchonete, açaiteria, pizzaria, doceria ou qualquer pequeno negócio que vende pelo WhatsApp. O cliente abre o link, monta o pedido (com adicionais e observações), escolhe entrega ou retirada e a forma de pagamento, e o WhatsApp abre com a mensagem pronta para a loja.
 
@@ -7,7 +7,7 @@ Você edita **um único arquivo** (`cardapio.json`) direto no site do GitHub e p
 **Acesse online:** https://micdog22.github.io/cardapio-digital/ (cardápio de exemplo)
 
 ## Recursos
-- Selo "Aberto agora" / "Fechado — abre às 18h" calculado pelos horários do cardápio, no horário de Brasília (aceita horários que passam da meia-noite, como 18:00 às 02:00).
+- Selo "Aberto agora" / "Fechado · abre às 18h" calculado pelos horários do cardápio, no horário de Brasília (aceita horários que passam da meia-noite, como 18:00 às 02:00).
 - Categorias com atalhos, busca sem diferenciar acentos e itens indisponíveis marcados.
 - Carrinho com quantidades, adicionais com preço e observação por item.
 - Entrega ou retirada, endereço, forma de pagamento e "troco para quanto" quando for dinheiro.
@@ -35,7 +35,7 @@ Exemplo resumido (o arquivo do projeto tem o cardápio completo da "Lanchonete E
   "nome": "Lanchonete Exemplo",
   "slogan": "Lanches artesanais feitos na hora",
   "whatsapp": "5519900000000",
-  "endereco": "Rua Exemplo, 123 – Centro",
+  "endereco": "Rua Exemplo, 123, Centro",
   "taxaEntrega": 5.00,
   "pedidoMinimo": 20.00,
   "pagamentos": ["Pix", "Dinheiro", "Cartão de crédito", "Cartão de débito"],
@@ -114,4 +114,4 @@ Usa o `node:test` nativo, sem nenhuma dependência. Os testes cobrem a validaç�
 Issues e pull requests são bem-vindos.
 
 ## Licença
-MIT — veja [LICENSE](LICENSE).
+MIT. Veja [LICENSE](LICENSE).

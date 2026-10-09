@@ -26,7 +26,7 @@ const NBSP = '\u00a0';
 const sample = JSON.parse(readFileSync(new URL('../cardapio.json', import.meta.url), 'utf8'));
 const { menu } = validateMenu(sample);
 const money = (text) => text.replaceAll('R$ ', `R$${NBSP}`);
-const customer = { name: 'Maria Exemplo', mode: 'entrega', address: 'Rua das Flores, 45 – Jardim Exemplo', complement: 'casa 2', payment: 'Pix', change: '' };
+const customer = { name: 'Maria Exemplo', mode: 'entrega', address: 'Rua das Flores, 45, Jardim Exemplo', complement: 'casa 2', payment: 'Pix', change: '' };
 
 test('o cardapio.json de exemplo é válido', () => {
   const result = validateMenu(sample);
@@ -159,16 +159,16 @@ test('mensagem do pedido para o WhatsApp', () => {
   assert.equal(message, ([
     'Olá, *Lanchonete Exemplo*! Quero fazer um pedido:',
     '',
-    '*2x X-Burguer* — R$ 57,80',
+    '*2x X-Burguer:* R$ 57,80',
     '   + Adicional de bacon (R$ 4,00)',
     '   Obs.: sem cebola',
-    '*1x Refrigerante lata (350 ml)* — R$ 6,00',
+    '*1x Refrigerante lata (350 ml):* R$ 6,00',
     '',
     'Subtotal: R$ 63,80',
     'Taxa de entrega: R$ 5,00',
     '*Total: R$ 68,80*',
     '',
-    '*Entrega:* Rua das Flores, 45 – Jardim Exemplo',
+    '*Entrega:* Rua das Flores, 45, Jardim Exemplo',
     'Complemento: casa 2',
     '*Pagamento:* Dinheiro (troco para R$ 100,00)',
     '*Nome:* Maria Exemplo',
@@ -199,20 +199,20 @@ test('horários: aberto, fechado, depois da meia-noite e dias fechados', () => {
   const at = (weekday, hhmm) => ({ weekday, minutes: Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3)) });
   assert.equal(statusText(openingStatus(s, at(5, '19:00'))).text, 'Aberto agora · fecha às 2h');
   assert.equal(statusText(openingStatus(s, at(6, '01:30'))).text, 'Aberto agora · fecha às 2h', 'sexta que passa da meia-noite');
-  assert.equal(statusText(openingStatus(s, at(6, '02:00'))).text, 'Fechado — abre às 11h');
+  assert.equal(statusText(openingStatus(s, at(6, '02:00'))).text, 'Fechado · abre às 11h');
   assert.equal(statusText(openingStatus(s, at(6, '12:00'))).text, 'Aberto agora · fecha às 14h');
-  assert.equal(statusText(openingStatus(s, at(6, '15:00'))).text, 'Fechado — abre às 18h');
+  assert.equal(statusText(openingStatus(s, at(6, '15:00'))).text, 'Fechado · abre às 18h');
   assert.equal(statusText(openingStatus(s, at(0, '01:00'))).text, 'Aberto agora · fecha às 2h', 'sábado que passa da meia-noite');
-  assert.equal(statusText(openingStatus(s, at(0, '10:00'))).text, 'Fechado — abre às 18h');
-  assert.equal(statusText(openingStatus(s, at(0, '23:45'))).text, 'Fechado — abre terça às 18h', 'segunda fechada, abre na terça');
-  assert.equal(statusText(openingStatus(s, at(1, '20:00'))).text, 'Fechado — abre amanhã às 18h', 'segunda fechada');
+  assert.equal(statusText(openingStatus(s, at(0, '10:00'))).text, 'Fechado · abre às 18h');
+  assert.equal(statusText(openingStatus(s, at(0, '23:45'))).text, 'Fechado · abre terça às 18h', 'segunda fechada, abre na terça');
+  assert.equal(statusText(openingStatus(s, at(1, '20:00'))).text, 'Fechado · abre amanhã às 18h', 'segunda fechada');
   assert.equal(statusText(openingStatus(s, at(4, '23:29'))).text, 'Aberto agora · fecha às 23h30');
-  assert.equal(statusText(openingStatus(s, at(4, '23:30'))).text, 'Fechado — abre amanhã às 18h');
+  assert.equal(statusText(openingStatus(s, at(4, '23:30'))).text, 'Fechado · abre amanhã às 18h');
   const closedAllWeek = [[], [], [], [], [], [], []];
   assert.equal(statusText(openingStatus(closedAllWeek, at(3, '12:00'))).text, 'Fechado');
   const midnight = [[{ open: 1080, close: 0 }], [], [], [], [], [], []];
   assert.equal(statusText(openingStatus(midnight, at(0, '23:59'))).text, 'Aberto agora · fecha à meia-noite');
-  assert.equal(statusText(openingStatus(midnight, at(1, '00:00'))).text, 'Fechado — abre domingo às 18h');
+  assert.equal(statusText(openingStatus(midnight, at(1, '00:00'))).text, 'Fechado · abre domingo às 18h');
 });
 
 test('"agora" no fuso de São Paulo (injetado)', () => {

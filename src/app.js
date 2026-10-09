@@ -91,7 +91,7 @@ function applyTheme() {
   root.setProperty('--brand', menu.themeColor);
   root.setProperty('--brand-text', readableTextColor(menu.themeColor));
   document.querySelector('meta[name="theme-color"]').setAttribute('content', menu.themeColor);
-  document.title = `${menu.name} — cardápio e pedidos pelo WhatsApp`;
+  document.title = `${menu.name}: cardápio e pedidos pelo WhatsApp`;
 }
 
 function renderHeader() {
@@ -327,7 +327,7 @@ function renderCart() {
     const stepper = el('div', 'stepper');
     stepper.setAttribute('role', 'group');
     stepper.setAttribute('aria-label', `Quantidade de ${item.name}`);
-    const minus = el('button', '', '−');
+    const minus = el('button', '', '-');
     minus.type = 'button';
     minus.setAttribute('aria-label', `Diminuir ${item.name}`);
     minus.addEventListener('click', () => changeQty(index, -1));
